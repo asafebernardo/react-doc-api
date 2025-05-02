@@ -1,15 +1,40 @@
 import Expansor from "../expansor";
 import Pastas from "../pastas";
 
-function Sistema() {
+function Sistema({ onSelecionar }) {
   return (
     <div className="sistema">
       <Expansor titulo="Cadastros">
-        <button className="conteudo-expansor">• Clientes</button>
-        <button className="conteudo-expansor">• Contratos</button>
-        <button className="conteudo-expansor">• Produtos</button>
-        <button className="conteudo-expansor">• Fornecedor</button>
-        <button className="conteudo-expansor">• Estruturas</button>
+        <button
+          className="conteudo-expansor"
+          onClick={() => onSelecionar("cliente")}
+        >
+          • Clientes
+        </button>
+        <button
+          className="conteudo-expansor"
+          onClick={() => onSelecionar("cliente_contrato")}
+        >
+          • Contratos
+        </button>
+        <button
+          className="conteudo-expansor"
+          onClick={() => onSelecionar("produto")}
+        >
+          • Produtos
+        </button>
+        <button
+          className="conteudo-expansor"
+          onClick={() => onSelecionar("fornecedor")}
+        >
+          • Fornecedor
+        </button>
+        <button
+          className="conteudo-expansor"
+          onClick={() => onSelecionar("estrutura")}
+        >
+          • Estruturas
+        </button>
         <button className="conteudo-expansor">
           • Central de consultas (CPF/CNPJ)
         </button>
@@ -370,13 +395,7 @@ function Sistema() {
         </Pastas>
       </Expansor>
 
-      <Expansor titulo="IXC Hub">
-        <button className="conteudo-expansor">• Clientes Neutros</button>
-        <button className="conteudo-expansor">
-          • Ordens de serviço recebidaso
-        </button>
-        <button className="conteudo-expansor">• Reservas recebidas</button>
-      </Expansor>
+      <Expansor titulo="IXC Hub"></Expansor>
 
       <Expansor titulo="Inmap">
         <button className="conteudo-expansor">• Fiberdocs</button>

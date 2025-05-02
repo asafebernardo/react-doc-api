@@ -1,10 +1,5 @@
 {
-  "botoes": [
-    "Enviar notificação push",
-    "Enviar SMS",
-    "Enviar Omnichannel",
-    "Consulta de crédito"
-  ],
+  "botoes": ["Enviar notificação push", "Enviar SMS"],
   "abas": {
     "Contrato": {
       "campos": [

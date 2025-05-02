@@ -4,13 +4,13 @@ import listaSistema from "../images/list.svg";
 import listaRelatorios from "../images/print.svg";
 import listaConfiguracoes from "../images/gears.svg";
 import listaOutros from "../images/wrench.svg";
-import Sistema from "./sistema/sistema";
 import Configuracoes from "./configuracoes/configuracoes";
 import Relatorios from "./relatorios/relatorios";
 import Outros from "./outros/outros";
+import Sistema from "./sistema/sistema";
 
-function Esquerda() {
-  const [abaAtiva, setAbaAtiva] = useState(1); // Define qual aba está ativa inicialmente
+function Esquerda({ onSelecionar }) {
+  const [abaAtiva, setAbaAtiva] = useState(1);
 
   // Função para mudar a aba ativa
   const selecionarAba = (aba) => {
@@ -64,7 +64,7 @@ function Esquerda() {
       <div className="conteudo">
         {/* Conteúdos das Abas */}
         <div className={`secao ${abaAtiva === 1 ? "ativa" : ""}`}>
-          <Sistema></Sistema>
+          <Sistema onSelecionar={onSelecionar} />
         </div>
         <div className={`secao ${abaAtiva === 2 ? "ativa" : ""}`}>
           <Relatorios></Relatorios>
