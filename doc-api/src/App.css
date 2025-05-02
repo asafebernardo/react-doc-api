@@ -1,0 +1,19 @@
+.pagina {
+  display: flex;
+  height: 100vh;
+}
+
+.esquerda {
+  width: 254px;
+  background-color: #101619;
+  color: #a1aaae;
+  height: 100vh; /* altura total */
+  box-sizing: border-box;
+}
+
+.area-direita {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}

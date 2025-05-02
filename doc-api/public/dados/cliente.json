@@ -1,0 +1,118 @@
+{
+  "botoes": [
+    "Enviar notificação push",
+    "Enviar SMS",
+    "Enviar Omnichannel",
+    "Consulta de crédito"
+  ],
+  "abas": {
+    "Cliente": {
+      "campos": [
+        { "nome": "id", "descricao": "Identificador único do cliente." },
+        {
+          "nome": "ativo",
+          "descricao": "Indica se o cliente está ativo ou inativo."
+        },
+        {
+          "nome": "id_tipo_cliente",
+          "descricao": "Tipo de cliente (ex: pessoa física, jurídica)."
+        },
+        { "nome": "pais", "descricao": "País de origem do cliente." },
+        {
+          "nome": "tipo_pessoa",
+          "descricao": "Define se é pessoa física ou jurídica."
+        },
+        {
+          "nome": "regime_fiscal",
+          "descricao": "Tipo do regime tributário aplicado ao cliente."
+        }
+      ],
+      "metodos": [
+        {
+          "metodo": "GET",
+          "tipos_codigo": {
+            "curl": "curl --location --request GET 'https://api.exemplo.com/cliente'",
+            "php": "<?php\n// Código PHP para GET\n$response = file_get_contents('https://api.exemplo.com/cliente');\n?>",
+            "node": "const http = require('http');\nhttp.get('https://api.exemplo.com/cliente', (res) => { res.on('data', (data) => { console.log(data); }); });",
+            "python": "import requests\nresponse = requests.get('https://api.exemplo.com/cliente')\nprint(response.json())"
+          }
+        },
+        {
+          "metodo": "POST",
+          "tipos_codigo": {
+            "curl": "curl --location --request POST 'https://api.exemplo.com/cliente' --data-raw '{ \"id\": \"123\", \"nome\": \"Cliente\" }'",
+            "php": "<?php\n// Código PHP para POST\n$data = array('id' => '123', 'nome' => 'Cliente');\n$options = array(\n    'http' => array(\n        'method'  => 'POST',\n        'header'  => 'Content-Type: application/json',\n        'content' => json_encode($data)\n    )\n);\n$context  = stream_context_create($options);\n$response = file_get_contents('https://api.exemplo.com/cliente', false, $context);\n?>",
+            "node": "const http = require('http');\nconst data = JSON.stringify({id: '123', nome: 'Cliente'});\nconst options = {\n  hostname: 'api.exemplo.com',\n  port: 443,\n  path: '/cliente',\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'Content-Length': data.length\n  }\n};\nconst req = http.request(options, (res) => { res.on('data', (data) => { console.log(data.toString()); }); });\nreq.write(data);\nreq.end();",
+            "python": "import requests\ndata = {'id': '123', 'nome': 'Cliente'}\nresponse = requests.post('https://api.exemplo.com/cliente', json=data)\nprint(response.json())"
+          }
+        },
+        {
+          "metodo": "PUT",
+          "tipos_codigo": {
+            "curl": "curl --location --request PUT 'https://api.exemplo.com/cliente/123' --data-raw '{ \"nome\": \"Cliente Atualizado\" }'",
+            "php": "<?php\n// Código PHP para PUT\n$data = array('nome' => 'Cliente Atualizado');\n$options = array(\n    'http' => array(\n        'method'  => 'PUT',\n        'header'  => 'Content-Type: application/json',\n        'content' => json_encode($data)\n    )\n);\n$context  = stream_context_create($options);\n$response = file_get_contents('https://api.exemplo.com/cliente/123', false, $context);\n?>",
+            "node": "const http = require('http');\nconst data = JSON.stringify({nome: 'Cliente Atualizado'});\nconst options = {\n  hostname: 'api.exemplo.com',\n  port: 443,\n  path: '/cliente/123',\n  method: 'PUT',\n  headers: {\n    'Content-Type': 'application/json',\n    'Content-Length': data.length\n  }\n};\nconst req = http.request(options, (res) => { res.on('data', (data) => { console.log(data.toString()); }); });\nreq.write(data);\nreq.end();",
+            "python": "import requests\ndata = {'nome': 'Cliente Atualizado'}\nresponse = requests.put('https://api.exemplo.com/cliente/123', json=data)\nprint(response.json())"
+          }
+        },
+        {
+          "metodo": "DELETE",
+          "tipos_codigo": {
+            "curl": "curl --location --request DELETE 'https://api.exemplo.com/cliente/123'",
+            "php": "<?php\n// Código PHP para DELETE\n$options = array(\n    'http' => array(\n        'method'  => 'DELETE',\n        'header'  => 'Content-Type: application/json'\n    )\n);\n$context  = stream_context_create($options);\n$response = file_get_contents('https://api.exemplo.com/cliente/123', false, $context);\n?>",
+            "node": "const http = require('http');\nconst options = {\n  hostname: 'api.exemplo.com',\n  port: 443,\n  path: '/cliente/123',\n  method: 'DELETE',\n  headers: {'Content-Type': 'application/json'}\n};\nconst req = http.request(options, (res) => { res.on('data', (data) => { console.log(data.toString()); }); });\nreq.end();",
+            "python": "import requests\nresponse = requests.delete('https://api.exemplo.com/cliente/123')\nprint(response.json())"
+          }
+        }
+      ]
+    },
+    "Arquivos": {
+      "campos": [
+        { "nome": "nome_arquivo", "descricao": "Nome do arquivo enviado." },
+        { "nome": "tipo", "descricao": "Tipo de arquivo (ex: PDF, CSV)." },
+        {
+          "nome": "data_envio",
+          "descricao": "Data em que o arquivo foi enviado."
+        }
+      ],
+      "metodos": [
+        {
+          "metodo": "GET",
+          "tipos_codigo": {
+            "curl": "curl --location --request GET 'https://api.exemplo.com/arquivos'",
+            "php": "<?php\n// Código PHP para GET\n$response = file_get_contents('https://api.exemplo.com/arquivos');\n?>",
+            "node": "const http = require('http');\nhttp.get('https://api.exemplo.com/arquivos', (res) => { res.on('data', (data) => { console.log(data); }); });",
+            "python": "import requests\nresponse = requests.get('https://api.exemplo.com/arquivos')\nprint(response.json())"
+          }
+        },
+        {
+          "metodo": "POST",
+          "tipos_codigo": {
+            "curl": "curl --location --request POST 'https://api.exemplo.com/arquivos' --data-raw '{ \"nome_arquivo\": \"file1.pdf\", \"tipo\": \"pdf\" }'",
+            "php": "<?php\n// Código PHP para POST\n$data = array('nome_arquivo' => 'file1.pdf', 'tipo' => 'pdf');\n$options = array(\n    'http' => array(\n        'method'  => 'POST',\n        'header'  => 'Content-Type: application/json',\n        'content' => json_encode($data)\n    )\n);\n$context  = stream_context_create($options);\n$response = file_get_contents('https://api.exemplo.com/arquivos', false, $context);\n?>",
+            "node": "const http = require('http');\nconst data = JSON.stringify({nome_arquivo: 'file1.pdf', tipo: 'pdf'});\nconst options = {\n  hostname: 'api.exemplo.com',\n  port: 443,\n  path: '/arquivos',\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'Content-Length': data.length\n  }\n};\nconst req = http.request(options, (res) => { res.on('data', (data) => { console.log(data.toString()); }); });\nreq.write(data);\nreq.end();",
+            "python": "import requests\ndata = {'nome_arquivo': 'file1.pdf', 'tipo': 'pdf'}\nresponse = requests.post('https://api.exemplo.com/arquivos', json=data)\nprint(response.json())"
+          }
+        },
+        {
+          "metodo": "PUT",
+          "tipos_codigo": {
+            "curl": "curl --location --request PUT 'https://api.exemplo.com/arquivos/123' --data-raw '{ \"nome_arquivo\": \"file1_atualizado.pdf\" }'",
+            "php": "<?php\n// Código PHP para PUT\n$data = array('nome_arquivo' => 'file1_atualizado.pdf');\n$options = array(\n    'http' => array(\n        'method'  => 'PUT',\n        'header'  => 'Content-Type: application/json',\n        'content' => json_encode($data)\n    )\n);\n$context  = stream_context_create($options);\n$response = file_get_contents('https://api.exemplo.com/arquivos/123', false, $context);\n?>",
+            "node": "const http = require('http');\nconst data = JSON.stringify({nome_arquivo: 'file1_atualizado.pdf'});\nconst options = {\n  hostname: 'api.exemplo.com',\n  port: 443,\n  path: '/arquivos/123',\n  method: 'PUT',\n  headers: {\n    'Content-Type': 'application/json',\n    'Content-Length': data.length\n  }\n};\nconst req = http.request(options, (res) => { res.on('data', (data) => { console.log(data.toString()); }); });\nreq.write(data);\nreq.end();",
+            "python": "import requests\ndata = {'nome_arquivo': 'file1_atualizado.pdf'}\nresponse = requests.put('https://api.exemplo.com/arquivos/123', json=data)\nprint(response.json())"
+          }
+        },
+        {
+          "metodo": "DELETE",
+          "tipos_codigo": {
+            "curl": "curl --location --request DELETE 'https://api.exemplo.com/arquivos/123'",
+            "php": "<?php\n// Código PHP para DELETE\n$options = array(\n    'http' => array(\n        'method'  => 'DELETE',\n        'header'  => 'Content-Type: application/json'\n    )\n);\n$context  = stream_context_create($options);\n$response = file_get_contents('https://api.exemplo.com/arquivos/123', false, $context);\n?>",
+            "node": "const http = require('http');\nconst options = {\n  hostname: 'api.exemplo.com',\n  port: 443,\n  path: '/arquivos/123',\n  method: 'DELETE',\n  headers: {'Content-Type': 'application/json'}\n};\nconst req = http.request(options, (res) => { res.on('data', (data) => { console.log(data.toString()); }); });\nreq.end();",
+            "python": "import requests\nresponse = requests.delete('https://api.exemplo.com/arquivos/123')\nprint(response.json())"
+          }
+        }
+      ]
+    }
+  }
+}

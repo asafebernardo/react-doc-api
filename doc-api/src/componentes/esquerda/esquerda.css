@@ -1,0 +1,86 @@
+.esquerda {
+  height: 100%; /* Agora é altura da área-conteudo */
+  width: 254px;
+  background-color: #101619;
+  color: #a1aaae;
+  display: flex;
+  flex-direction: column;
+}
+
+.conteudo {
+  width: 254px;
+  height: 100%;
+  background-color: #212c31;
+  box-sizing: border-box;
+}
+
+.abas {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.aba {
+  background-color: #101619;
+  border: none;
+  border-radius: 10px 10px 0px 0px;
+  cursor: pointer;
+  padding: 10px 15px 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.aba.ativa {
+  background-color: #212c31;
+  color: white;
+}
+
+.secao {
+  display: none;
+  max-height: calc(
+    100vh - 150px
+  ); /* altura máxima - ajusta conforme altura dos cabeçalhos/abas */
+  overflow-y: auto; /* apenas a seção vai scrollar */
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.secao.ativa {
+  display: block;
+}
+
+.aba img.icone-aba {
+  width: 18px;
+  height: 14px;
+  transition: all 0.3s ease; /* Suaviza a transição de brilho e sombra */
+}
+
+.aba img:hover {
+  filter: brightness(1.1); /* Aumenta o brilho da imagem */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Adiciona um brilho ao redor da imagem */
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scroll personalizado só nas seções */
+.secao::-webkit-scrollbar {
+  width: 5px;
+}
+
+.secao::-webkit-scrollbar-track {
+  background: #212c31;
+  border-radius: 10px;
+}
+
+.secao::-webkit-scrollbar-thumb {
+  background: #01648f;
+  border-radius: 10px;
+}
+
+.secao::-webkit-scrollbar-thumb:hover {
+  background: #0193c9;
+}

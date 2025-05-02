@@ -1,0 +1,19 @@
+.campo-busca {
+  padding: 8px 12px;
+  width: 250px; /* Largura do campo de busca */
+  max-width: 100%; /* Garante que o campo de busca não ultrapasse o tamanho do contêiner */
+  border-radius: 0px;
+  border: none; /* Remove as outras bordas */
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: #101619;
+  border-bottom: 2px solid #263237; /* Borda inferior padrão */
+  color: #a1aaae;
+}
+
+/* Altera a cor da borda inferior ao clicar e escrever */
+.campo-busca:focus {
+  border-bottom: 2px solid #01648f; /* Cor de borda ao focar (pode ser qualquer cor) */
+  color: #ffffff;
+}

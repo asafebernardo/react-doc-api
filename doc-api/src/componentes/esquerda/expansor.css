@@ -1,0 +1,43 @@
+.titulo-expansor {
+  width: 100%;
+  background-color: #212c31;
+  color: #a1aaae;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-indent: 15px;
+  padding: 10px 8px;
+}
+
+.titulo-expansor.selecionado {
+  border-left: 4px solid #01648f; /* Borda azul na esquerda */
+  background-color: #233137; /* Pode dar uma leve mudança no fundo também */
+  color: white;
+}
+
+button.titulo-expansor:hover {
+  background-color: #233137;
+}
+
+.conteudo-expansor {
+  width: 100%; /* Faz o botão ocupar toda a largura */
+  display: block; /* Faz ele virar um bloco (um abaixo do outro) */
+  background-color: #182125; /* Cor de fundo */
+  color: #a1aaae; /* Cor do texto */
+  text-align: left; /* Alinha o texto à esquerda */
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  text-indent: 15px;
+  height: auto;
+}
+
+button.conteudo-expansor {
+  height: 32px;
+}
+
+button.conteudo-expansor:hover {
+  background-color: #233137;
+}

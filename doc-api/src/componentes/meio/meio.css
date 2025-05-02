@@ -1,0 +1,7 @@
+.meio {
+  flex: 1;
+  background-color: #263237;
+  overflow-y: auto;
+  box-sizing: border-box;
+  border-radius: 40px 0px 0px 0px;
+}
