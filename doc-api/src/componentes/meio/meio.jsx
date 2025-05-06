@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "../meio/meio.css";
+import copy from "../images/copy01.png";
+import download from "../images/download01.png";
 
 function Meio({ nomeArquivo }) {
   const [dados, setDados] = useState(null);
@@ -18,52 +20,85 @@ function Meio({ nomeArquivo }) {
       })
       .then((json) => {
         setDados(json);
-        setAbaSelecionada(null);
-        setMetodoSelecionado(""); // Resetar o método ao carregar novos dados
-        setLinguagemSelecionada(""); // Resetar a linguagem ao carregar novos dados
       })
       .catch(() => setDados({ erro: "Arquivo não encontrado ou inválido." }));
   }, [nomeArquivo]);
 
   useEffect(() => {
-    if (!dados) return;
+    if (!dados || !dados.abas) return;
 
-    // Pré-seleciona a primeira aba se ainda não tiver sido selecionada
-    if (!abaSelecionada && Object.keys(dados.abas).length > 0) {
-      const primeiraAba = Object.keys(dados.abas)[0]; // Primeira aba
-      setAbaSelecionada(primeiraAba);
+    const primeiraAba = Object.keys(dados.abas)[0];
+    setAbaSelecionada(primeiraAba);
+  }, [dados]);
 
-      // Definir os valores padrões (método e linguagem)
-      const primeiroMetodo = dados.abas[primeiraAba].metodos[0]?.metodo;
-      const primeiraLinguagem =
-        dados.abas[primeiraAba].metodos[0]?.tipos_codigo;
+  useEffect(() => {
+    if (!dados || !abaSelecionada) return;
 
-      setMetodoSelecionado(primeiroMetodo || "");
-      setLinguagemSelecionada(Object.keys(primeiraLinguagem || {})[0] || "");
+    const metodos = dados.abas[abaSelecionada]?.metodos;
+    if (metodos?.length > 0) {
+      setMetodoSelecionado(metodos[0].metodo || "");
+      const linguagens = Object.keys(metodos[0]?.tipos_codigo || {});
+      setLinguagemSelecionada(linguagens[0] || "");
     }
-  }, [dados, abaSelecionada]);
+  }, [abaSelecionada, dados]);
 
   const toggleExpandir = (campo) => {
     setExpandidos((prev) => ({ ...prev, [campo]: !prev[campo] }));
   };
 
   const handleMetodoChange = (e) => {
-    const metodoSelecionado = e.target.value;
-    setMetodoSelecionado(metodoSelecionado);
+    const metodo = e.target.value;
+    setMetodoSelecionado(metodo);
 
-    // Atualiza automaticamente o código na linguagem selecionada
-    if (linguagemSelecionada) {
-      setLinguagemSelecionada(linguagemSelecionada); // Isso vai garantir que o código seja exibido imediatamente
-    }
+    const metodoObj = dados.abas[abaSelecionada].metodos.find(
+      (m) => m.metodo === metodo
+    );
+    const linguagens = Object.keys(metodoObj?.tipos_codigo || {});
+    setLinguagemSelecionada(linguagens[0] || "");
   };
 
   const handleAbaClick = (aba) => {
-    // Só atualiza a aba selecionada se for diferente da atual
     if (abaSelecionada !== aba) {
       setAbaSelecionada(aba);
-      setMetodoSelecionado(""); // Resetar método ao trocar aba
-      setLinguagemSelecionada(""); // Resetar linguagem ao trocar aba
     }
+  };
+
+  const copiarCodigo = () => {
+    const codigo = dados.abas[abaSelecionada].metodos.find(
+      (m) => m.metodo === metodoSelecionado
+    ).tipos_codigo[linguagemSelecionada];
+
+    navigator.clipboard.writeText(codigo).then(() => {
+      alert("Código copiado para a área de transferência!");
+    });
+  };
+
+  const baixarCodigo = () => {
+    const codigo = dados.abas[abaSelecionada].metodos.find(
+      (m) => m.metodo === metodoSelecionado
+    ).tipos_codigo[linguagemSelecionada];
+
+    const blob = new Blob([codigo], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const extensao = {
+      javascript: "js",
+      node: "js",
+      python: "py",
+      php: "php",
+      curl: "sh",
+      bash: "sh",
+    };
+
+    const ext = extensao[linguagemSelecionada] || "txt";
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${metodoSelecionado}.${ext}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -90,7 +125,7 @@ function Meio({ nomeArquivo }) {
                 <button
                   key={index}
                   className={`aba ${abaSelecionada === aba ? "ativa" : ""}`}
-                  onClick={() => handleAbaClick(aba)} // Usando a função para evitar reset
+                  onClick={() => handleAbaClick(aba)}
                 >
                   {aba}
                 </button>
@@ -102,9 +137,12 @@ function Meio({ nomeArquivo }) {
               <div className="conteudo-aba">
                 {/* Campos à esquerda */}
                 <div className="campos">
-                  {dados.abas[abaSelecionada].campos.map((campo, index) => (
+                  {dados.abas[abaSelecionada]?.campos?.map((campo, index) => (
                     <div key={index} className="campo">
-                      <button onClick={() => toggleExpandir(campo.nome)}>
+                      <button
+                        className="btn-campo"
+                        onClick={() => toggleExpandir(campo.nome)}
+                      >
                         {campo.nome}
                       </button>
                       {expandidos[campo.nome] && (
@@ -117,19 +155,23 @@ function Meio({ nomeArquivo }) {
                 {/* Métodos à direita */}
                 <div className="metodos">
                   <div className="linha-metodos">
-                    <select
-                      value={metodoSelecionado}
-                      onChange={handleMetodoChange} // Alteração de método
-                    >
-                      {dados.abas[abaSelecionada].metodos.map((m, index) => (
-                        <option key={index} value={m.metodo}>
-                          {m.metodo}
-                        </option>
-                      ))}
-                    </select>
-
-                    {metodoSelecionado && (
+                    {dados.abas[abaSelecionada]?.metodos && (
                       <select
+                        className={`select-metodo metodo-${metodoSelecionado}`}
+                        value={metodoSelecionado}
+                        onChange={handleMetodoChange}
+                      >
+                        {dados.abas[abaSelecionada].metodos.map((m, index) => (
+                          <option key={index} value={m.metodo}>
+                            {m.metodo}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+
+                    {metodoSelecionado && dados.abas[abaSelecionada] && (
+                      <select
+                        className={`select-tipoCodigo metodo-${metodoSelecionado}`}
                         value={linguagemSelecionada}
                         onChange={(e) =>
                           setLinguagemSelecionada(e.target.value)
@@ -138,13 +180,25 @@ function Meio({ nomeArquivo }) {
                         {Object.keys(
                           dados.abas[abaSelecionada].metodos.find(
                             (m) => m.metodo === metodoSelecionado
-                          ).tipos_codigo
+                          )?.tipos_codigo || {}
                         ).map((linguagem, index) => (
                           <option key={index} value={linguagem}>
                             {linguagem}
                           </option>
                         ))}
                       </select>
+                    )}
+
+                    {/* Botões de ação */}
+                    {metodoSelecionado && linguagemSelecionada && (
+                      <div className="botoes-inline">
+                        <button onClick={copiarCodigo}>
+                          <img src={copy} className="copy" />
+                        </button>
+                        <button onClick={baixarCodigo}>
+                          <img src={download} className="download" />
+                        </button>
+                      </div>
                     )}
                   </div>
 
