@@ -9,7 +9,7 @@ import Relatorios from "./relatorios/relatorios";
 import Outros from "./outros/outros";
 import Sistema from "./sistema/sistema";
 
-function Esquerda({ onSelecionar }) {
+function Esquerda({ onSelecionar, setNomeArquivo }) {
   const [abaAtiva, setAbaAtiva] = useState(1);
 
   // Função para mudar a aba ativa
@@ -64,7 +64,10 @@ function Esquerda({ onSelecionar }) {
       <div className="conteudo">
         {/* Conteúdos das Abas */}
         <div className={`secao ${abaAtiva === 1 ? "ativa" : ""}`}>
-          <Sistema onSelecionar={onSelecionar} />
+          <Sistema
+            onSelecionar={onSelecionar}
+            setNomeArquivo={setNomeArquivo}
+          />
         </div>
         <div className={`secao ${abaAtiva === 2 ? "ativa" : ""}`}>
           <Relatorios></Relatorios>

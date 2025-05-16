@@ -1,0 +1,342 @@
+.window {
+  margin: 0px 170px;
+  width: 85%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  background-color: #263237;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.window-header {
+  background-color: #263237;
+  cursor: grab;
+  user-select: none;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+.fechar {
+  border: none;
+  background-color: #263237;
+  color: #a1aaae;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Botões */
+.area-botoes {
+  margin-bottom: 20px;
+  margin-left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.botao {
+  background-color: #01648f;
+  color: rgb(204, 204, 204);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+}
+
+.botao:hover {
+  background-color: #004867;
+  color: rgb(255, 255, 255);
+}
+
+/* Abas */
+.area-abas {
+  display: flex;
+  gap: 12px;
+  margin-left: 10px;
+}
+
+.abaWindow {
+  padding: 10px 16px;
+  border-radius: 8px 8px 0 0;
+  background-color: #314249;
+  color: rgb(204, 204, 204);
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  border: none;
+}
+
+.abaWindow:hover {
+  background-color: #24333a;
+}
+
+.abaWindow.ativa {
+  background-color: #1b272c;
+  font-weight: bold;
+}
+
+/* Divisão dos campos e métodos */
+.conteudo-aba {
+  display: flex;
+  gap: 10px;
+  height: 100%;
+  background-color: #1b272c;
+  padding: 10px;
+  border-radius: 0px 10px 10px 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+/* Campos à esquerda */
+.campos {
+  width: 40%;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.campos::-webkit-scrollbar {
+  width: 5px;
+}
+
+.campos::-webkit-scrollbar-track {
+  background: #212c31;
+  border-radius: 10px;
+}
+
+.campos::-webkit-scrollbar-thumb {
+  background: #01648f;
+  border-radius: 10px;
+}
+
+.campos::-webkit-scrollbar-thumb:hover {
+  background: #0193c9;
+}
+
+.btn-campo {
+  background-color: #212c31;
+  width: 100%;
+  border-left: 3px #004867 solid;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 17px;
+  color: #0099cc;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+}
+
+.btn-campo:hover {
+  border-left: 3px #01648f solid;
+  font-size: 15px;
+  color: #01648f;
+}
+
+.btn-campo:active {
+  border-left: 3px #4f7e92 solid;
+}
+
+.descricao {
+  background-color: #212c31;
+  padding: 17px;
+  margin-bottom: 5px;
+  border-left: 3px #1b272c solid;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  color: #a1aaae;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+}
+
+.metodos {
+  width: 60%;
+  padding: 0px 14px;
+  background-color: #212c31;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column; /* Adicionando flex para garantir que o conteúdo se ajuste */
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+/* Métodos */
+.linha-metodos {
+  display: flex;
+  align-items: center;
+}
+
+.linha-metodos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 0px;
+  border-bottom: #314249 2px solid;
+}
+
+option {
+  background-color: #263237;
+  border-radius: 5px;
+  font-weight: bold;
+  border: #01648f 2px solid;
+}
+
+.opt-metodos {
+  background-color: #263237;
+}
+
+.select-metodo {
+  padding: 8px 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  background-color: #263237;
+  color: #ccc;
+  font-family: "Open Sans", sans-serif;
+}
+
+.select-metodo:hover {
+  color: #ffffff;
+}
+
+.select-tipoCodigo {
+  padding: 8px 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  background-color: #263237;
+  color: #ccc;
+  margin-left: auto;
+  font-family: "Open Sans", sans-serif;
+}
+
+.select-tipoCodigo:hover {
+  color: #ffffff;
+}
+
+/* Código */
+.codigo-container {
+  flex: 1; /* Isso garante que a área do código ocupe o restante do espaço */
+  padding: 1px;
+  overflow-y: auto; /* Barra de rolagem vertical */
+  overflow-x: auto; /* Barra de rolagem horizontal */
+  max-height: 100%;
+}
+
+/* Estilo para a barra de rolagem personalizada */
+.codigo-container::-webkit-scrollbar {
+  width: 5px; /* Largura da barra de rolagem */
+}
+
+.codigo-container::-webkit-scrollbar-track {
+  background: #212c31; /* Cor de fundo da trilha */
+  border-radius: 10px; /* Arredondar as bordas */
+}
+
+.codigo-container::-webkit-scrollbar-thumb {
+  background: #01648f; /* Cor da "cabeça" da barra de rolagem */
+  border-radius: 10px; /* Arredondar a barra de rolagem */
+}
+
+.codigo-container::-webkit-scrollbar-thumb:hover {
+  background: #0193c9; /* Cor da barra de rolagem ao passar o mouse */
+}
+
+.codigo {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #a1aaae; /* Cor de texto clara */
+  white-space: pre-wrap; /* Faz o texto se ajustar ao tamanho do container */
+  word-wrap: break-word; /* Quebra as palavras longas */
+  padding: 5px;
+}
+
+.acoes-codigo {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start; /* Alinha os botões à esquerda */
+}
+
+.botoes-codigo {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.botoes-codigo button {
+  padding: 6px 12px;
+  background-color: #01648f; /* Cor de fundo para os botões */
+  color: white; /* Cor do texto */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 40%; /* Ajuste a largura proporcionalmente */
+  box-sizing: border-box; /* Garante que o padding não afete a largura */
+}
+
+.botoes-codigo button:hover {
+  background-color: #92929227;
+}
+
+.copy,
+.download {
+  width: 20px; /* Deixe a largura dos botões ajustada ao conteúdo */
+  padding: 3px 3px; /* Mais padding para tornar os botões mais agradáveis */
+  background-color: none;
+  border-radius: 6px;
+  color: #b0b0b0;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center; /* Garante que o texto fique centralizado */
+}
+
+/* Certificando-se de que os botões estão dentro de uma linha e com boa largura */
+.botoes-codigo button:focus {
+  outline: none;
+}
+
+.linha-metodos {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.botoes-inline {
+  display: flex;
+  gap: 8px;
+}
+
+.botoes-inline button {
+  background-color: #263237;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #ccc;
+  transition: background-color 0.2s;
+}
+
+.botoes-inline button:hover {
+  background-color: #3f5a63;
+}
+
+.botoes-codigo-inline {
+  display: flex;
+  gap: 8px;
+}

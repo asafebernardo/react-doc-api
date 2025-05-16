@@ -2,6 +2,9 @@ import Expansor from "../expansor";
 import Pastas from "../pastas";
 
 function Sistema({ onSelecionar }) {
+  const [tela, setTela] = useState("");
+  const [nomeArquivo, setNomeArquivo] = useState("");
+
   return (
     <div className="sistema">
       <Expansor titulo="Cadastros">
