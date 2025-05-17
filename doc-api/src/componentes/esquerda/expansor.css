@@ -12,8 +12,8 @@
 }
 
 .titulo-expansor.selecionado {
-  border-left: 4px solid #01648f; /* Borda azul na esquerda */
-  background-color: #233137; /* Pode dar uma leve mudança no fundo também */
+  border-left: 4px solid #01648f;
+  background-color: #233137;
   color: white;
 }
 
@@ -22,16 +22,18 @@ button.titulo-expansor:hover {
 }
 
 .conteudo-expansor {
-  width: 100%; /* Faz o botão ocupar toda a largura */
-  display: block; /* Faz ele virar um bloco (um abaixo do outro) */
-  background-color: #182125; /* Cor de fundo */
-  color: #a1aaae; /* Cor do texto */
-  text-align: left; /* Alinha o texto à esquerda */
+  width: 100%;
+  display: block;
+  background-color: #182125;
+  color: #a1aaae;
+  text-align: left;
   border: none;
   cursor: pointer;
   font-size: 12px;
   text-indent: 15px;
   height: auto;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
 }
 
 button.conteudo-expansor {

@@ -10,8 +10,6 @@ function Window({ nomeArquivo, onClose }) {
   const [metodoSelecionado, setMetodoSelecionado] = useState("");
   const [linguagemSelecionada, setLinguagemSelecionada] = useState("");
   const [expandidos, setExpandidos] = useState({});
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [dragging, setDragging] = useState(false);
 
   // Carregar JSON dinamicamente baseado no nomeArquivo
   useEffect(() => {
@@ -45,34 +43,6 @@ function Window({ nomeArquivo, onClose }) {
       setLinguagemSelecionada(linguagens[0] || "");
     }
   }, [abaSelecionada, dados]);
-
-  // Drag da janela
-  const startDrag = (e) => {
-    const rect = windowRef.current.getBoundingClientRect();
-    setDragOffset({
-      x: e.pageX - rect.left,
-      y: e.pageY - rect.top,
-    });
-    setDragging(true);
-  };
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (dragging && windowRef.current) {
-        windowRef.current.style.left = `${e.pageX - dragOffset.x}px`;
-        windowRef.current.style.top = `${e.pageY - dragOffset.y}px`;
-      }
-    };
-    const handleMouseUp = () => {
-      if (dragging) setDragging(false);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [dragging, dragOffset]);
 
   // Lógica interna
   const toggleExpandir = (campo) => {
@@ -160,13 +130,6 @@ function Window({ nomeArquivo, onClose }) {
       ref={windowRef}
       style={{ position: "fixed", top: "100px", left: "100px" }}
     >
-      <div className="window-header" onMouseDown={startDrag}>
-        <span>{dados.titulo}</span> {/* Exibir título aqui */}
-        <button onClick={onClose} className="fechar">
-          ✖
-        </button>
-      </div>
-
       <div className="area-botoes">
         {dados.botoes &&
           Object.keys(dados.botoes).map((key, index) => (
@@ -191,70 +154,71 @@ function Window({ nomeArquivo, onClose }) {
 
       {abaSelecionada && (
         <div className="conteudo-aba">
-          {/* Exibir descrição abaixo das abas */}
           {dados.abas[abaSelecionada]?.descricao && (
             <div className="descricao-aba">
               {dados.abas[abaSelecionada]?.descricao}
             </div>
           )}
 
-          <div className="campos">
-            {dados.abas[abaSelecionada]?.campos?.map((campo, index) => (
-              <div key={index} className="campo">
-                <button
-                  className="btn-campo"
-                  onClick={() => toggleExpandir(campo.nome)}
-                >
-                  {campo.nome}
-                </button>
-                {expandidos[campo.nome] && (
-                  <div className="descricao">{campo.descricao}</div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="metodos">
-            <div className="linha-metodos">
-              <select
-                className={`select-metodo metodo-${metodoSelecionado}`}
-                value={metodoSelecionado}
-                onChange={handleMetodoChange}
-              >
-                {dados.abas[abaSelecionada].metodos.map((m, index) => (
-                  <option key={index} value={m.metodo}>
-                    {m.metodo}
-                  </option>
-                ))}
-              </select>
-
-              <select
-                className={`select-tipoCodigo metodo-${metodoSelecionado}`}
-                value={linguagemSelecionada}
-                onChange={(e) => setLinguagemSelecionada(e.target.value)}
-              >
-                {Object.keys(
-                  dados.abas[abaSelecionada].metodos.find(
-                    (m) => m.metodo === metodoSelecionado
-                  )?.tipos_codigo || {}
-                ).map((linguagem, index) => (
-                  <option key={index} value={linguagem}>
-                    {linguagem}
-                  </option>
-                ))}
-              </select>
-
-              <div className="botoes-inline">
-                <button onClick={copiarCodigo}>
-                  <img src={copy} className="copy" />
-                </button>
-                <button onClick={baixarCodigo}>
-                  <img src={download} className="download" />
-                </button>
-              </div>
+          <div className="conteudo-principal">
+            <div className="campos">
+              {dados.abas[abaSelecionada]?.campos?.map((campo, index) => (
+                <div key={index} className="campo">
+                  <button
+                    className="btn-campo"
+                    onClick={() => toggleExpandir(campo.nome)}
+                  >
+                    {campo.nome}
+                  </button>
+                  {expandidos[campo.nome] && (
+                    <div className="descricao">{campo.descricao}</div>
+                  )}
+                </div>
+              ))}
             </div>
 
-            <div className="codigo-container">{renderCodigo()}</div>
+            <div className="metodos">
+              <div className="linha-metodos">
+                <select
+                  className={`select-metodo metodo-${metodoSelecionado}`}
+                  value={metodoSelecionado}
+                  onChange={handleMetodoChange}
+                >
+                  {dados.abas[abaSelecionada].metodos.map((m, index) => (
+                    <option key={index} value={m.metodo}>
+                      {m.metodo}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  className={`select-tipoCodigo metodo-${metodoSelecionado}`}
+                  value={linguagemSelecionada}
+                  onChange={(e) => setLinguagemSelecionada(e.target.value)}
+                >
+                  {Object.keys(
+                    dados.abas[abaSelecionada].metodos.find(
+                      (m) => m.metodo === metodoSelecionado
+                    )?.tipos_codigo || {}
+                  ).map((linguagem, index) => (
+                    <option key={index} value={linguagem}>
+                      {linguagem}
+                    </option>
+                  ))}
+                </select>
+
+                <div className="botoes-inline">
+                  <button onClick={copiarCodigo}>
+                    <img src={copy} className="copy" />
+                  </button>
+                  <button onClick={baixarCodigo}>
+                    <img src={download} className="download" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="codigo-container">{renderCodigo()}</div>
+            </div>
           </div>
         </div>
       )}

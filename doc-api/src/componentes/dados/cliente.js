@@ -1,18 +1,86 @@
 // src/dados/cliente.js
-import enviarSMS from "./enviarSMS";
+//import enviarSMS from "./enviarSMS";
 
-function blankCode() {
-  return {
-    padrao: { url: "", headers: "", body: "" },
-    curl: "",
-    php: "",
-    node: "",
-    python: "",
+function Cliente(nameFunction) {
+  const metodos = {
+    Get: () => ({
+      padrao: {
+        url: "https://meudominio.com/webservice/v1/cliente",
+        headers: "ixcsoft=listar",
+        body: "{teste:teste}",
+      },
+      curl: "curl GET...",
+    }),
+    Post: () => ({
+      padrao: {
+        url: "https://meudominio.com/webservice/v1/cliente",
+        headers: "ixcsoft=inserir",
+        body: "{novo:cliente}",
+      },
+      curl: "curl POST...",
+    }),
+    Put: () => ({
+      padrao: {
+        url: "https://meudominio.com/webservice/v1/cliente",
+        headers: "ixcsoft=alterar",
+        body: "{id:1,nome:novo}",
+      },
+      curl: "curl PUT...",
+    }),
+    Delete: () => ({
+      padrao: {
+        url: "https://meudominio.com/webservice/v1/cliente",
+        headers: "ixcsoft=excluir",
+        body: "{id:1}",
+      },
+      curl: "curl DELETE...",
+    }),
   };
+
+  return metodos[nameFunction]();
+}
+
+function Arquivo(nameFunction) {
+  const metodos = {
+    Get: () => ({
+      padrao: {
+        url: "https://meudominio.com/webservice/v1/cliente_arquivos",
+        headers: "ixcsoft=listar",
+        body: "{teste:teste}",
+      },
+      curl: "curl GET Arquivos...",
+    }),
+    Post: () => ({
+      padrao: {
+        url: "https://meudominio.com/webservice/v1/cliente_arquivos",
+        headers: "ixcsoft=inserir",
+        body: "{arquivo:novo}",
+      },
+      curl: "curl POST Arquivos...",
+    }),
+    Put: () => ({
+      padrao: {
+        url: "https://meudominio.com/webservice/v1/cliente_arquivos",
+        headers: "ixcsoft=alterar",
+        body: "{id:1,arquivo:atualizado}",
+      },
+      curl: "curl PUT Arquivos...",
+    }),
+    Delete: () => ({
+      padrao: {
+        url: "https://meudominio.com/webservice/v1/cliente_arquivos",
+        headers: "ixcsoft=excluir",
+        body: "{id:1}",
+      },
+      curl: "curl DELETE Arquivos...",
+    }),
+  };
+
+  return metodos[nameFunction]();
 }
 
 const cliente = {
-  titulo: "cliente",
+  titulo: "",
   descricao: "Rotas relacionadas ao cliente",
 
   botoes: {
@@ -25,7 +93,7 @@ const cliente = {
   },
 
   abas: {
-    cliente: {
+    Cliente: {
       titulo: "cliente",
       descricao: "Isso é uma rota de cliente.",
       campos: [
@@ -33,14 +101,14 @@ const cliente = {
         { nome: "Nome", descricao: "Nome completo do cliente" },
       ],
       metodos: [
-        { metodo: "GET", tipos_codigo: blankCode() },
-        { metodo: "POST", tipos_codigo: blankCode() },
-        { metodo: "PUT", tipos_codigo: blankCode() },
-        { metodo: "DELETE", tipos_codigo: blankCode() },
+        { metodo: "GET", tipos_codigo: Cliente("Get") },
+        { metodo: "POST", tipos_codigo: Cliente("Post") },
+        { metodo: "PUT", tipos_codigo: Cliente("Put") },
+        { metodo: "DELETE", tipos_codigo: Cliente("Delete") },
       ],
     },
 
-    arquivo: {
+    Arquivos: {
       titulo: "cliente_arquivo",
       descricao: "Isso é uma rota de cliente para arquivos.",
       campos: [
@@ -48,10 +116,10 @@ const cliente = {
         { nome: "Nome", descricao: "Nome completo do cliente" },
       ],
       metodos: [
-        { metodo: "GET", tipos_codigo: blankCode() },
-        { metodo: "POST", tipos_codigo: blankCode() },
-        { metodo: "PUT", tipos_codigo: blankCode() },
-        { metodo: "DELETE", tipos_codigo: blankCode() },
+        { metodo: "GET", tipos_codigo: Arquivo("Get") },
+        { metodo: "POST", tipos_codigo: Arquivo("Post") },
+        { metodo: "PUT", tipos_codigo: Arquivo("Put") },
+        { metodo: "DELETE", tipos_codigo: Arquivo("Delete") },
       ],
     },
   },

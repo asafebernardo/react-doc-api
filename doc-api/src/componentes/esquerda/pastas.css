@@ -29,7 +29,7 @@ button.titulo-pastas:hover {
 
 .conteudo-pastas {
   width: 100%;
-  max-height: 250px; /* altura máxima antes de scrollar */
+  max-height: 550px;
   overflow-y: auto;
   background-color: #182125;
   color: #a1aaae;

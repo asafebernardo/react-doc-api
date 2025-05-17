@@ -1,6 +1,7 @@
 .pagina {
   display: flex;
   height: 100vh;
+  background-color: #101619;
 }
 
 .esquerda {

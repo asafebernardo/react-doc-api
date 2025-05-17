@@ -1,10 +1,10 @@
 .campo-busca {
   padding: 8px 12px;
-  width: 250px; /* Largura do campo de busca */
-  max-width: 100%; /* Garante que o campo de busca não ultrapasse o tamanho do contêiner */
+  width: 200px; /* Largura do campo de busca */
+  max-width: 80%; /* Garante que o campo de busca não ultrapasse o tamanho do contêiner */
   border-radius: 0px;
   border: none; /* Remove as outras bordas */
-  font-size: 16px;
+  font-size: 14px;
   outline: none;
   transition: border-color 0.3s ease;
   background-color: #101619;

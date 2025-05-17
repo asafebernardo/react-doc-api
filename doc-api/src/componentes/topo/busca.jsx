@@ -7,8 +7,8 @@ function Busca({ onBuscar }) {
   // Função para lidar com a busca ao pressionar Enter
   const handleBusca = (e) => {
     if (e.key === "Enter") {
+      setBusca(busca); // Limpa o campo após a busca
       onBuscar(busca); // Chama a função de busca passando o valor digitado
-      setBusca(""); // Limpa o campo após a busca
     }
   };
 
