@@ -4,36 +4,36 @@
 function Cliente(nameFunction) {
   const metodos = {
     Get: () => ({
-      padrao: {
+      Padrão: {
         url: "https://meudominio.com/webservice/v1/cliente",
         headers: "ixcsoft=listar",
         body: "{teste:teste}",
       },
-      curl: "curl GET...",
+      cURL: "curl GET...",
     }),
     Post: () => ({
-      padrao: {
+      Padrão: {
         url: "https://meudominio.com/webservice/v1/cliente",
         headers: "ixcsoft=inserir",
         body: "{novo:cliente}",
       },
-      curl: "curl POST...",
+      cURL: "curl POST...",
     }),
     Put: () => ({
-      padrao: {
+      Padrão: {
         url: "https://meudominio.com/webservice/v1/cliente",
         headers: "ixcsoft=alterar",
         body: "{id:1,nome:novo}",
       },
-      curl: "curl PUT...",
+      cURL: "curl PUT...",
     }),
     Delete: () => ({
-      padrao: {
+      Padrão: {
         url: "https://meudominio.com/webservice/v1/cliente",
         headers: "ixcsoft=excluir",
         body: "{id:1}",
       },
-      curl: "curl DELETE...",
+      cURL: "curl DELETE...",
     }),
   };
 
@@ -43,36 +43,36 @@ function Cliente(nameFunction) {
 function Arquivo(nameFunction) {
   const metodos = {
     Get: () => ({
-      padrao: {
+      Padrão: {
         url: "https://meudominio.com/webservice/v1/cliente_arquivos",
         headers: "ixcsoft=listar",
         body: "{teste:teste}",
       },
-      curl: "curl GET Arquivos...",
+      cURL: "curl GET Arquivos...",
     }),
     Post: () => ({
-      padrao: {
+      Padrão: {
         url: "https://meudominio.com/webservice/v1/cliente_arquivos",
         headers: "ixcsoft=inserir",
         body: "{arquivo:novo}",
       },
-      curl: "curl POST Arquivos...",
+      cURL: "curl POST Arquivos...",
     }),
     Put: () => ({
-      padrao: {
+      Padrão: {
         url: "https://meudominio.com/webservice/v1/cliente_arquivos",
         headers: "ixcsoft=alterar",
         body: "{id:1,arquivo:atualizado}",
       },
-      curl: "curl PUT Arquivos...",
+      cURL: "curl PUT Arquivos...",
     }),
     Delete: () => ({
-      padrao: {
+      Padrão: {
         url: "https://meudominio.com/webservice/v1/cliente_arquivos",
         headers: "ixcsoft=excluir",
         body: "{id:1}",
       },
-      curl: "curl DELETE Arquivos...",
+      cURL: "curl DELETE Arquivos...",
     }),
   };
 

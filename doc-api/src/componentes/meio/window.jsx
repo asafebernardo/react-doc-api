@@ -3,7 +3,7 @@ import copy from "../images/copy01.png";
 import download from "../images/download01.png";
 import "../meio/window.css";
 
-function Window({ nomeArquivo, onClose }) {
+function Window({ nomeArquivo, onClose, onMensagem, onErro }) {
   const windowRef = useRef(null);
   const [dados, setDados] = useState(null);
   const [abaSelecionada, setAbaSelecionada] = useState(null);
@@ -11,7 +11,6 @@ function Window({ nomeArquivo, onClose }) {
   const [linguagemSelecionada, setLinguagemSelecionada] = useState("");
   const [expandidos, setExpandidos] = useState({});
 
-  // Carregar JSON dinamicamente baseado no nomeArquivo
   useEffect(() => {
     if (!nomeArquivo) return;
 
@@ -24,7 +23,6 @@ function Window({ nomeArquivo, onClose }) {
       });
   }, [nomeArquivo]);
 
-  // Selecionar a primeira aba automaticamente
   useEffect(() => {
     if (dados?.abas) {
       const primeiraAba = Object.keys(dados.abas)[0];
@@ -32,7 +30,6 @@ function Window({ nomeArquivo, onClose }) {
     }
   }, [dados]);
 
-  // Selecionar primeiro método e linguagem da aba
   useEffect(() => {
     if (!dados || !abaSelecionada) return;
 
@@ -44,50 +41,69 @@ function Window({ nomeArquivo, onClose }) {
     }
   }, [abaSelecionada, dados]);
 
-  // Lógica interna
   const toggleExpandir = (campo) => {
     setExpandidos((prev) => ({ ...prev, [campo]: !prev[campo] }));
   };
 
   const copiarCodigo = () => {
-    const codigo = dados.abas[abaSelecionada].metodos.find(
-      (m) => m.metodo === metodoSelecionado
-    ).tipos_codigo[linguagemSelecionada];
+    try {
+      const codigo = dados.abas[abaSelecionada].metodos.find(
+        (m) => m.metodo === metodoSelecionado
+      ).tipos_codigo[linguagemSelecionada];
 
-    navigator.clipboard.writeText(codigo).then(() => {
-      alert("Código copiado para a área de transferência!");
-    });
+      navigator.clipboard
+        .writeText(
+          typeof codigo === "object" ? JSON.stringify(codigo, null, 2) : codigo
+        )
+        .then(() => {
+          onMensagem && onMensagem("✅ Código copiado!");
+          setTimeout(() => onMensagem && onMensagem(""), 3000);
+        });
+    } catch {
+      onErro && onErro("❌ Erro ao copiar o código.");
+      setTimeout(() => onErro && onErro(""), 3000);
+    }
   };
 
   const baixarCodigo = () => {
-    const codigo = dados.abas[abaSelecionada].metodos.find(
-      (m) => m.metodo === metodoSelecionado
-    ).tipos_codigo[linguagemSelecionada];
+    try {
+      const codigo = dados.abas[abaSelecionada].metodos.find(
+        (m) => m.metodo === metodoSelecionado
+      ).tipos_codigo[linguagemSelecionada];
 
-    const blob = new Blob([codigo], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
+      const blob = new Blob(
+        [typeof codigo === "object" ? JSON.stringify(codigo, null, 2) : codigo],
+        { type: "text/plain;charset=utf-8" }
+      );
+      const url = URL.createObjectURL(blob);
 
-    const extensao = {
-      javascript: "js",
-      node: "js",
-      python: "py",
-      php: "php",
-      curl: "sh",
-      bash: "sh",
-    };
+      const extensao = {
+        javascript: "js",
+        node: "js",
+        python: "py",
+        php: "php",
+        curl: "sh",
+        bash: "sh",
+      };
 
-    const ext = extensao[linguagemSelecionada] || "txt";
+      const ext = extensao[linguagemSelecionada] || "txt";
 
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${metodoSelecionado}.${ext}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${metodoSelecionado}.${ext}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      onMensagem && onMensagem("✅ Arquivo baixado!");
+      setTimeout(() => onMensagem && onMensagem(""), 3000);
+    } catch {
+      onErro && onErro("❌ Erro ao baixar o arquivo.");
+      setTimeout(() => onErro && onErro(""), 3000);
+    }
   };
 
-  // Se erro ou nulo
   if (!dados) return <p>Carregando...</p>;
   if (dados.erro) return <p>{dados.erro}</p>;
 
@@ -101,7 +117,6 @@ function Window({ nomeArquivo, onClose }) {
     setLinguagemSelecionada(linguagens[0] || "");
   };
 
-  // Função para renderizar código, verificando se é objeto
   const renderCodigo = () => {
     const metodo = dados.abas[abaSelecionada].metodos.find(
       (m) => m.metodo === metodoSelecionado
@@ -109,28 +124,27 @@ function Window({ nomeArquivo, onClose }) {
 
     const codigo = metodo?.tipos_codigo[linguagemSelecionada];
 
-    // Se o código for um objeto, renderize suas propriedades
     if (typeof codigo === "object") {
       return (
         <div className="codigo-objeto">
           <div className="url">
-            <div className="tipoTexto">URL/Host</div>{" "}
+            <div className="tipoTexto">URL/Host</div>
             <div className="code">{codigo.url}</div>
           </div>
           <div className="headers">
-            <div className="tipoTexto">Headers</div>{" "}
+            <div className="tipoTexto">Headers</div>
             <div className="code">
               {JSON.stringify(codigo.headers, null, 2)}
             </div>
           </div>
           <div className="body">
-            <div></div> <div className="code">{codigo.body}</div>
+            <div></div>
+            <div className="code">{codigo.body}</div>
           </div>
         </div>
       );
     }
 
-    // Se não for objeto, apenas renderize o código normalmente
     return <pre className="codigo">{codigo}</pre>;
   };
 
@@ -143,9 +157,21 @@ function Window({ nomeArquivo, onClose }) {
       <div className="area-botoes">
         {dados.botoes &&
           Object.keys(dados.botoes).map((key, index) => (
-            <button key={index} className="botao">
-              {key}{" "}
-              {/* Aqui estamos usando a chave do objeto, que será o nome do botão */}
+            <button
+              key={index}
+              className="botao"
+              onClick={() => {
+                const arquivoExiste = dados.botoes[key].arquivo;
+
+                if (arquivoExiste) {
+                  console.log(`Abrir: ${arquivoExiste}`);
+                } else {
+                  onErro && onErro(`❌ Arquivo para "${key}" não encontrado.`);
+                  setTimeout(() => onErro && onErro(""), 3000);
+                }
+              }}
+            >
+              {key}
             </button>
           ))}
       </div>
@@ -219,10 +245,10 @@ function Window({ nomeArquivo, onClose }) {
 
                 <div className="botoes-inline">
                   <button onClick={copiarCodigo}>
-                    <img src={copy} className="copy" />
+                    <img src={copy} className="copy" alt="Copiar" />
                   </button>
                   <button onClick={baixarCodigo}>
-                    <img src={download} className="download" />
+                    <img src={download} className="download" alt="Download" />
                   </button>
                 </div>
               </div>

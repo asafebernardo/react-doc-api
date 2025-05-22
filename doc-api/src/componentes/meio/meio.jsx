@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./meio.css";
 import Window from "./window";
 
-function Meio({ nomeArquivo }) {
+function Meio({ nomeArquivo, onMensagem, onErro }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -56,7 +56,13 @@ function Meio({ nomeArquivo }) {
   return (
     <div className="meio">
       <canvas ref={canvasRef} className="fundo-estrelas" />
-      {nomeArquivo && <Window nomeArquivo={nomeArquivo} />}
+      {nomeArquivo && (
+        <Window
+          nomeArquivo={nomeArquivo}
+          onMensagem={onMensagem}
+          onErro={onErro}
+        />
+      )}
     </div>
   );
 }
