@@ -7,7 +7,7 @@
   font-size: 14px;
   outline: none;
   transition: border-color 0.3s ease;
-  background-color: #101619;
+  background: none;
   border-bottom: 2px solid #263237; /* Borda inferior padrão */
   color: #a1aaae;
 }
