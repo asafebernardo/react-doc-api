@@ -1,4 +1,6 @@
 # Doc API (React)
+Esse projeto foi desenvolvido inicialmente como uma ideia de como poderia ser a documentação API do IXC Provedor.
+https://github.com/user-attachments/assets/b35f9764-b362-427b-b446-1ab398a2fbfa
 
 Aplicação React para navegação/consulta de documentação de API.
 
