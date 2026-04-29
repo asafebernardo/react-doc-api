@@ -9,8 +9,6 @@ function App() {
   const [tela, setTela] = useState(""); // Estado de controle da "tela"
   const [mensagem, setMensagem] = useState("");
   const [erro, setErro] = useState("");
-  {
-  }
   return (
     <div className="pagina">
       {mensagem && <div className="mensagem sucesso">{mensagem}</div>}

@@ -23,7 +23,7 @@ function Esquerda({ onSelecionar }) {
     <div className="esquerda">
       <div className="logo">
         <button className="btn-logo">
-          <img src={Logo} className="icone-logo" title="Logo" />
+          <img src={Logo} className="icone-logo" alt="Logo" title="Logo" />
         </button>
         <div className="leftSearch">
           <Busca onBuscar={setBusca} />
@@ -36,13 +36,23 @@ function Esquerda({ onSelecionar }) {
           className={`aba ${abaAtiva === 1 ? "ativa" : ""}`}
           onClick={() => selecionarAba(1)}
         >
-          <img src={listaSistema} className="icone-aba" title="Sistema" />
+          <img
+            src={listaSistema}
+            className="icone-aba"
+            alt="Sistema"
+            title="Sistema"
+          />
         </button>
         <button
           className={`aba ${abaAtiva === 2 ? "ativa" : ""}`}
           onClick={() => selecionarAba(2)}
         >
-          <img src={listaRelatorios} className="icone-aba" title="Relatórios" />
+          <img
+            src={listaRelatorios}
+            className="icone-aba"
+            alt="Relatórios"
+            title="Relatórios"
+          />
         </button>
         <button
           className={`aba ${abaAtiva === 3 ? "ativa" : ""}`}
@@ -51,6 +61,7 @@ function Esquerda({ onSelecionar }) {
           <img
             src={listaConfiguracoes}
             className="icone-aba"
+            alt="Configurações"
             title="Configurações"
           />
         </button>
@@ -58,7 +69,7 @@ function Esquerda({ onSelecionar }) {
           className={`aba ${abaAtiva === 4 ? "ativa" : ""}`}
           onClick={() => selecionarAba(4)}
         >
-          <img src={listaOutros} className="icone-aba" title="Outros" />
+          <img src={listaOutros} className="icone-aba" alt="Outros" title="Outros" />
         </button>
       </div>
 
